@@ -4,20 +4,32 @@
 		<img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file)}}">
     		<div class="media-body">
 			<div class="article-metadata">
+
+				<!-- Displays and validates users post with their username and date of when it was posted--!>
+
 				<a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
 				<small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
 				{% if post.author == current_user %}
+
+				<!-- Link to update page or button for the delete Modal which confims if the user wishes to delete a post or not --!>
+
 					<div>
 						<a class ="btn btn-secondary btn-sm mt-1 mb-1" href="{{url_for('update_post', post_id=post.id)}}">Update</a>
 						<button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete<button>
 					</div>
 				{% endif %}
 			</div>
+
+			<!-- Users post title and content --!>
+
 			<h2 class="article-title">{{ post.title }}</h2>
 			<p class="article-content">{{ post.content }}</p>
 		</div>
 	</article>
 	<!-- Modal -->
+
+	<!-- Using Bootstraps Modal, this verifys if the user wants to delete the selected post by making them cofirm they want to delete it with a pop up notification --!>
+
 	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 	    <div class="modal-content">

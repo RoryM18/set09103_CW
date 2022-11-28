@@ -6,6 +6,9 @@
 		<fieldset class="form-group">
 			<legend class="border-bottom mb-4">{{ legend }}</legend>
 			<div class="form-group">
+
+				<!-- Validation for the title text box --!>
+
 				{{ form.title.label(class="form-control-label") }}
 				{% if form.title.errors %}
 					{{ form.title(class="form-control form-control-lg is-invalid") }}
@@ -19,6 +22,9 @@
 				{% endif %}
 			</div>
 			<div class="form-group">
+
+				<!-- Validation for the content text box --!>	
+
 				{{ form.content.label(class="form-control-label") }}
 				{% if form.content.errors %}
 					{{ form.content(class="form-control form-control-lg is-invalid") }}

@@ -6,6 +6,9 @@
                         <fieldset class="form-group">
                                 <legend class="border-bottom mb-4">Log In</legend>
                                 <div class="form-group">
+
+					<!-- Validation for User entering their email --!>
+
                                         {{ form.email.label(class="form-control-label") }}
                                         {% if form.email.errors %}
                                                 {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -19,6 +22,9 @@
                                         {% endif %}
                                 </div>
                                 <div class="form-group">
+
+					<!-- Validation for user entering their password --!>					
+
                                         {{ form.password.label(class="form-control-label") }}
                                         {% if form.password.errors %}
                                                 {{ form.password(class="form-control form-control-lg is-invalid") }}
@@ -32,6 +38,9 @@
                                         {% endif %}
 				 </div>
 				 <div class="form-check">
+
+					<!-- HTML for Remember me button --!>
+
 					{{ form.remember(class="form-check-input") }}
 					{{ form.remember.label(class="form-check-label") }}
 				 </div>
@@ -45,6 +54,9 @@
                 </form>
         </div>
         <div class="border-top pt-3">
+
+		<!-- Link for register page  --!>
+
                 <small class="text-muted">
                         Need An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign Up Now!</a>
                 </small>

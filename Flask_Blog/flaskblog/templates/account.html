@@ -2,6 +2,9 @@
 {% block content %}
 	<div class ="content-section">
 		<div class ="media">
+				
+			<!-- Makes profile picture a rounded circle --!>
+
 			<img class ="rounded-circle account-img" src={{ image_file }}>
 			<div class="media-body">
 				<h2 class="account-heading">{{ current_user.username }}</h2>
@@ -12,7 +15,10 @@
                         {{form.hidden_tag() }}
                         <fieldset class="form-group">
                                 <legend class="border-bottom mb-4">Account Info</legend>
-                                <div class="form-group">
+                                <div class="form-group">i
+
+					<!-- Validation for displaying username --!>
+
                                         {{ form.username.label(class="form-control-label") }}
 
                                         {% if form.username.errors %}
@@ -27,6 +33,9 @@
                                         {% endif %}
                                 </div>
                                 <div class="form-group">
+
+					<!-- Validation for displaying email --!>	
+
                                         {{ form.email.label(class="form-control-label") }}
                                         {% if form.email.errors %}
                                                 {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -40,6 +49,9 @@
                                         {% endif %}
                                 </div>
 				<div class="form-group">
+
+					<!-- Validation for displaying profile pic --!>
+					
                                         {{ form.picture.label() }}
 					{{ form.picture(class="form-control-file") }}
 					{% if form.picture.errors %}

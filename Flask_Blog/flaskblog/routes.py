@@ -71,6 +71,7 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+#Saves users profiels pictures and automatically resizes the inputted photo saves and retrieves from the static folder
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
@@ -85,6 +86,7 @@ def save_picture(form_picture):
 
     return picture_fn
 
+#Flask link to the account page allows users to update email, username and profile pic. Returns account html
 
 @app.route("/account", methods=['GET', 'POST'])
 @login_required
@@ -105,6 +107,7 @@ def account():
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
+#Flask link to the post page returns the create post html and allows the user to create a new post with a title and content, post is added to the database
 
 @app.route("/post/new", methods=['GET', 'POST'])
 @login_required
@@ -118,12 +121,14 @@ def new_post():
         return redirect(url_for('home'))
     return render_template('create_post.html', title='New Post', form=form, legend='New Post')
 
+#Gives each post an Id or responds with a 404 error
 
 @app.route("/post/<int:post_id>")
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', title=post.title, post=post)
 
+#If user tries to update a certain post that is no their it will respond with a 403 error otherwise it will return the create post page with all the post content in it so the user can update the post
 
 @app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
 @login_required
@@ -143,6 +148,7 @@ def update_post(post_id):
         form.content.data = post.content
     return render_template('create_post.html', title='Update Post', form=form, legend='Update Post')
 
+#Allows users to delete their post and will return to the home page but if the post is not that users then they will recieve a 403 error, will also delete the post from the database
 
 @app.route("/post/<int:post_id>/delete", methods=['POST'])
 @login_required
@@ -155,6 +161,7 @@ def delete_post(post_id):
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('home'))
 
+#Sends the user an email with a token that allows them to reset their password whith the following message
 
 def send_reset_email(user):
     token = user.get_reset_token()
@@ -167,6 +174,7 @@ If you did not make this request then please ignore this email and no changes wi
 
     mail.send(msg)
 
+#Shows all the post from the selected user from first to last
 
 @app.route("/user/<string:username>")
 def user_posts(username):
@@ -175,6 +183,7 @@ def user_posts(username):
     posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template('user_posts.html', posts=posts, user=user)
 
+#Flask link to the reset password page which will allow the user to request an email with a token to reset their password
 
 @app.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
@@ -188,6 +197,7 @@ def reset_request():
         return redirect(url_for('login'))
     return render_template('reset_request.html', title='Reset Password', form=form)
 
+#The token that is sent to the user within the email. will take the user to the reset token html page or will give the user an error if the token is expired
 
 @app.route("/reset_password/<token>", methods=['GET', 'POST'])
 def reset_token(token):

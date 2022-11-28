@@ -6,6 +6,9 @@
                         <fieldset class="form-group">
                                 <legend class="border-bottom mb-4">Reset Password</legend>
                                 <div class="form-group">
+
+					<!-- Validates the users password --!>
+
                                         {{ form.password.label(class="form-control-label") }}
                                         {% if form.password.errors %}
                                                 {{ form.password(class="form-control form-control-lg is-invalid") }}
@@ -19,6 +22,9 @@
                                         {% endif %}
                                 </div>
 				<div class="form-group">
+
+					<!-- Validates the users password --!>
+
                                         {{ form.confirm_password.label(class="form-control-label") }}
                                         {% if form.confirm_password.errors %}
                                                 {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
