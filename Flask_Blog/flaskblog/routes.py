@@ -8,6 +8,7 @@ from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 
+#Flask links to the home page which displays the html for the home page and the users posts from newest to oldest
 
 @app.route("/")
 @app.route("/home")
@@ -16,9 +17,19 @@ def home():
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template('home.html', posts=posts)
 
+#Flask link to the about page which returns the html for the about page
+
 @app.route("/about")
 def about():
     return render_template('about.html', title='About')
+
+#Flask link to the register page which is where the user can register for an account. displays the html for the register page
+
+#The user will be redirected to the home page once registered 
+
+#The users password becomes encrypted within the database using the bcrypt extension
+
+#The new user is added to the database
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -33,6 +44,10 @@ def register():
         flash(f'Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+#Flask link for the login page which returns the html for the login page
+
+#Checks that the users given email and password is within the database if all is correct the user is returned to the home page if the users details is not in the datbase a message will indicate that they are incorrect
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -49,6 +64,7 @@ def login():
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
+#Once clicked by the user they are logged out and returned to the home page as a logged out user
 
 @app.route("/logout")
 def logout():
